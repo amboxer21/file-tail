@@ -1,9 +1,18 @@
 #!/usr/bin/env ruby
 
-class Tail
+require 'net/ssh'
+load 'modules/options.rb'
 
-  def initialize(filename)
-    @fd = file_descriptor(filename)
+class Tail 
+
+  include OptionsModule
+
+  def initialize
+
+    Options.new
+
+    @fd = file_descriptor(Options::OPTIONS.filename)
+
   end
 
   def file_descriptor(filename)
@@ -28,13 +37,12 @@ class Tail
   def tail(data)
     while true do
       for line in [data.poll] do
-        puts line
+        p line
       end
     end
   end
 
 end
 
-@_filename = ARGV[0]
-file = Tail.new @_filename
+file = Tail.new
 file.tail(file)
