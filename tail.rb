@@ -34,9 +34,9 @@ class Tail
     end
   end
 
-  def tail(data)
+  def tail(file)
     while true do
-      for line in [data.poll] do
+      for line in [file.poll] do
         p line
       end
     end
